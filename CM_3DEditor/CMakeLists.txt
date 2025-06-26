@@ -1,7 +1,15 @@
 cmake_minimum_required(VERSION 3.19)
 project(CM_3DEditor LANGUAGES CXX)
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets)
+find_package(Qt6 6.5 REQUIRED COMPONENTS
+    Core
+    Widgets
+    Core
+    Gui
+    Widgets
+    OpenGL
+    OpenGLWidgets
+)
 
 qt_standard_project_setup()
 
@@ -11,12 +19,17 @@ qt_add_executable(CM_3DEditor
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui
+    ViewerWidget.cpp
+    ViewerWidget.h
 )
 
 target_link_libraries(CM_3DEditor
     PRIVATE
         Qt::Core
+        Qt::Gui
         Qt::Widgets
+        Qt::OpenGL
+        Qt::OpenGLWidgets
 )
 
 include(GNUInstallDirs)
