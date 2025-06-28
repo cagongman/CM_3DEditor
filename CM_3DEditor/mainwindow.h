@@ -17,6 +17,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void OnOpenFile();
+
 private:
     Ui::MainWindow *ui;
 };
