@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "ViewerWidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -18,9 +19,9 @@ public:
     ~MainWindow();
 
 private slots:
-    void OnOpenFile();
 
 private:
     Ui::MainWindow *ui;
+    ViewerWidget* m_viewerWidget;
 };
 #endif // MAINWINDOW_H
