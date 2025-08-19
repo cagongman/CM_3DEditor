@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.19)
 project(CM_3DEditor LANGUAGES CXX)
 
+# C++17 표준 사용
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 find_package(Qt6 6.5 REQUIRED COMPONENTS
     Core
     Widgets
@@ -11,16 +15,34 @@ find_package(Qt6 6.5 REQUIRED COMPONENTS
     OpenGLWidgets
 )
 
+# OpenGL 라이브러리 찾기
+find_package(OpenGL REQUIRED)
+
 qt_standard_project_setup()
 
-qt_add_executable(CM_3DEditor
-    WIN32 MACOSX_BUNDLE
+# 소스 파일들
+set(SOURCES
     main.cpp
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui
     ViewerWidget.cpp
     ViewerWidget.h
+    PLYLoader.cpp
+    PLYLoader.h
+    Mesh.cpp
+    Mesh.h
+    Camera.cpp
+    Camera.h
+    Shader.cpp
+    Shader.h
+    Renderer.cpp
+    Renderer.h
+)
+
+qt_add_executable(CM_3DEditor
+    WIN32 MACOSX_BUNDLE
+    ${SOURCES}
 )
 
 target_link_libraries(CM_3DEditor
@@ -30,7 +52,15 @@ target_link_libraries(CM_3DEditor
         Qt::Widgets
         Qt::OpenGL
         Qt::OpenGLWidgets
+        OpenGL::GL
 )
+
+# 컴파일러 플래그 설정
+if(MSVC)
+    target_compile_options(CM_3DEditor PRIVATE /W4)
+else()
+    target_compile_options(CM_3DEditor PRIVATE -Wall -Wextra)
+endif()
 
 include(GNUInstallDirs)
 
